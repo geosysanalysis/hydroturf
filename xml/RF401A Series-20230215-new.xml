@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:\Campbellsci\Lib\DevConfigLib\en\v2/summary.xsl"?>
+<device-config device-type="62" major-version="0" minor-version="0" model-no="RF401A Series" serial-no="" timestamp="2023-02-15T17:28:00.653">
+  <setting id="0" name="Active Interface">
+    <component name="Active Interface" repeat-count="0">1</component>
+  </setting>
+  <setting id="1" name="SDC Address">
+    <component name="SDC Address" repeat-count="0">7</component>
+  </setting>
+  <setting id="7" name="RS-232 Baud Rate">
+    <component name="RS-232 Baud Rate" repeat-count="0">6</component>
+  </setting>
+  <setting id="6" name="Protocol">
+    <component name="Protocol" repeat-count="0">1</component>
+  </setting>
+  <setting id="10" name="RF Hop Sequence">
+    <component name="RF Hop Sequence" repeat-count="0">0</component>
+  </setting>
+  <setting id="17" name="RF Address">
+    <component name="RF Network" repeat-count="0">0</component>
+    <component name="RF Radio Address" repeat-count="0">0</component>
+  </setting>
+  <setting id="37" name="Power Mode">
+    <component name="Power Mode" repeat-count="0">4</component>
+  </setting>
+  <setting id="36" name="Retry Level">
+    <component name="Retry Level" repeat-count="0">1</component>
+  </setting>
+  <setting id="35" name="Radio TX Power Level">
+    <component name="Radio TX Power Level" repeat-count="0">4</component>
+  </setting>
+  <setting id="25" name="PakBus Address">
+    <component name="PakBus Address" repeat-count="0">1</component>
+  </setting>
+  <setting id="30" name="PakBus Beacon Interval">
+    <component name="PakBus Beacon Interval" repeat-count="0">60</component>
+  </setting>
+  <setting id="31" name="PakBus Verify Interval">
+    <component name="PakBus Verify Interval" repeat-count="0">150</component>
+  </setting>
+  <setting id="32" name="Central Router">
+    <component name="Central Router" repeat-count="0">0</component>
+  </setting>
+  <setting id="33" name="Neighbors Allowed" />
+  <setting id="28" name="Serial Number">
+    <component name="Serial Number" repeat-count="0">0</component>
+  </setting>
+  <setting id="29" name="Operating System Version">
+    <component name="Operating System Version" repeat-count="0">5</component>
+  </setting>
+  <setting id="26" name="Radio Firmware Version">
+    <component name="Radio Firmware Version" repeat-count="0">12308</component>
+  </setting>
+  <setting id="16" name="Received Signal Strength">
+    <component name="Received Signal Strength" repeat-count="0">0</component>
+  </setting>
+  <setting id="27" name="Retransmit Failures">
+    <component name="Retransmit Failures" repeat-count="0">0</component>
+  </setting>
+  <setting id="34" name="ME Baud Rate">
+    <component name="ME Baud Rate" repeat-count="0">0</component>
+  </setting>
+  <setting id="3" name="RS-232 Parity">
+    <component name="RS-232 Parity" repeat-count="0">0</component>
+  </setting>
+  <setting id="4" name="RS-232 Stop Bits">
+    <component name="RS-232 Stop Bits" repeat-count="0">0</component>
+  </setting>
+  <setting id="5" name="RS-232 Character Length">
+    <component name="RS-232 Character Length" repeat-count="0">0</component>
+  </setting>
+  <setting id="2" name="RS-232 Auto Power Down">
+    <component name="RS-232 Auto Power Down" repeat-count="0">1</component>
+  </setting>
+  <setting id="11" name="AT Sequence Character">
+    <component name="AT Sequence Character" repeat-count="0">43</component>
+  </setting>
+  <setting id="20" name="Silence Time before Command Sequence">
+    <component name="Silence Time before Command Sequence" repeat-count="0">10</component>
+  </setting>
+  <setting id="21" name="Silence Time after Command Sequence">
+    <component name="Silence Time after Command Sequence" repeat-count="0">10</component>
+  </setting>
+  <setting id="22" name="AT Command Mode Timeout">
+    <component name="AT Command Mode Timeout" repeat-count="0">100</component>
+  </setting>
+  <setting id="23" name="Address Mask">
+    <component name="Net Address Mask" repeat-count="0">31</component>
+    <component name="Radio Address Mask" repeat-count="0">1023</component>
+  </setting>
+</device-config>
+

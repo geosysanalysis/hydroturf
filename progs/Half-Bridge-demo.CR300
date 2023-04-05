@@ -1,0 +1,89 @@
+'CR300/CR310
+'Triggers 12V current
+'Author: Quinn Hull
+
+'Change Log
+'10022022: Create Trigger for 12V based on counter
+'10162022: Create Trigger for 12V based on reconnyx
+'12142022: Back to measuring inundation as a raw voltage
+'12152022: Moved to CR300 from CR1000
+'02132023: For three sensors
+'04152023: Changes for Mike
+
+'Declare Variables and Units
+Public BattV
+Public PTemp_C
+Public Inundation1
+Public Inundation2
+Public Inundation3
+Public TrigFlag As Boolean ' if inundated, True. To decide if trigger (SW12) is needed
+Public TrigVal As Long ' if inundated, oscillates True False with Scan. To send a trigger (SW12). Note that camera responds to the 'change', not state, of SW12. 
+Public Threshold As Float ' inundation in excess sets TrigFlag to True
+
+Units BattV=Volts
+Units PTemp_C=Deg C
+Units Threshold=mV/mv
+Units Inundation1=mV/mV
+' Units Inundation2=mV/mV
+' Units Inundation3=mV/mV
+
+'Define Data Tables
+DataTable(InundationData,True,-1)
+	DataInterval(0,60,Sec,10)
+  Average(1,BattV,FP2,False)
+	Average(1,PTemp_C,FP2,False)
+	Average(1,Threshold,FP2,False)
+	Average(1,Inundation1,FP2,False)
+	Average(1,Inundation2,FP2,False)
+	Average(1,Inundation3,FP2,False)
+	Average(1,TrigFlag,FP2,False)
+	Average(1,TrigVal,FP2,False)
+EndTable
+
+
+'Main Program
+BeginProg
+  TrigFlag = 0 
+  TrigVal = 0
+  Threshold = 0.8
+  
+	'Main Scan
+	Scan(10,Sec,1,0)
+	 
+		Battery(BattV)
+		PanelTemp(PTemp_C,60)
+		
+		'Generic Half Bridge measurements 'Inundation'
+		BrHalf(Inundation1,1,mV2500,1,VX2,1,500,True,0,60,1,0)
+		BrHalf(Inundation2,1,mV2500,3,VX2,1,500,True,0,60,1,0)
+		BrHalf(Inundation3,1,mV2500,5,VX2,1,500,True,0,60,1,0)
+
+    ' sub ifInundated(Inundation, threshold)
+	  If (Inundation1 < Threshold) OR (Inundation2 < Threshold) OR (Inundation3 < Threshold) Then 
+	    TrigFlag = true
+	  Else
+	    TrigFlag = false
+	  EndIf 
+	  
+    ' sub changeTrigger(TrigFlag, TrigVal)
+    If (TrigFlag = true) Then
+      If TrigVal = 0 Then
+        TrigVal = 1
+      Else
+        TrigVal = 0
+      EndIf
+    ElseIf (TrigFlag = false) Then 
+      TrigVal = TrigVal 
+    EndIf
+
+    Delay (0,250,mSec)
+    SW12(TrigVal)
+    
+		'Call Data Tables and Store Data
+		CallTable InundationData
+
+	NextScan
+EndProg
+
+
+
