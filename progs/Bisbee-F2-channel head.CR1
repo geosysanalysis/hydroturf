@@ -13,15 +13,14 @@
 '12152022: Moved to CR300 from CR1000
 '02132023: For three sensors
 '04152023: Changes for Mike
+'05012023: Updates for field implementation, QH
 ' Wiring Diagram
 ' 
 
 'Declare Variables and Units
 Public BattV
 Public PTemp_C
-Public Inundation(3), V(4), TP(4), slope
-'Public Inundation2
-'Public Inundation3
+Public Inundation(3), V(4), TP(4), slope, intercept
 Public TrigFlag As Boolean ' if inundated, True. To decide if trigger (SW12) is needed
 Public TrigVal As Long ' if inundated, oscillates True False with Scan. To send a trigger (SW12). Note that camera responds to the 'change', not state, of SW12. 
 Public Threshold As Float ' inundation in excess sets TrigFlag to True
@@ -30,8 +29,8 @@ Units BattV=Volts
 Units PTemp_C=Deg C
 Units Threshold=mV/mv
 Units Inundation()=mV/mV
-' Units Inundation2=mV/mV
-' Units Inundation3=mV/mV
+' Units V()=?
+' Units PT()=?
 
 'Define Data Tables
 DataTable(InundationData,True,-1)
@@ -39,9 +38,6 @@ DataTable(InundationData,True,-1)
   Average(1,BattV,FP2,False)
 	Average(1,PTemp_C,FP2,False)
 	Average(1,Threshold,FP2,False)
-	Average(3,Inundation(),FP2,False)
-'	Average(1,Inundation2,FP2,False)
-'	Average(1,Inundation3,FP2,False)
 	Average(1,TrigFlag,FP2,False)
 	Average(1,TrigVal,FP2,False)
 	Sample (4,V(1),FP2)
@@ -56,6 +52,7 @@ BeginProg
   Threshold = 0.8
 ' Apply transducer calibration
   slope=0.4554
+  intercept=80 ' for baro only
   
 	'Main Scan
 	Scan(10,Sec,1,0)
@@ -67,7 +64,7 @@ BeginProg
 		BrHalf(Inundation(1),1,mV2500,1,VX1,1,500,True,0,60,1,0)
 		BrHalf(Inundation(2),1,mV2500,2,VX1,1,500,True,0,60,1,0)
 		BrHalf(Inundation(3),1,mV2500,3,VX1,1,500,True,0,60,1,0)
-'	Take 4 transducer readings, V1-V3 for piezometers and V4 is for reference	
+    '	Take 4 transducer readings, V1-V3 for piezometers and V4 is for reference	
     BrHalf (V(1),1,mV2500,5,Vx2,1,2500,False ,0,250,2500,0)
 		BrHalf (V(2),1,mV2500,6,Vx2,1,2500,False ,0,250,2500,0)
 		BrHalf (V(3),1,mV2500,7,Vx2,1,2500,False ,0,250,2500,0)
@@ -76,7 +73,7 @@ BeginProg
     TP(1)=(V(1)-V(4))*slope 
     TP(2)=(V(2)-V(4))*slope
     TP(3)=(V(3)-V(4))*slope
-    TP(4)=V(4)*slope+80
+    TP(4)=V(4)*slope + intercept
 		 
 
     ' sub ifInundated(Inundation, threshold)
