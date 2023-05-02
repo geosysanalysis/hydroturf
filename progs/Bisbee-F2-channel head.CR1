@@ -107,9 +107,9 @@ BeginProg
     Call IfInundation(Inundation(), Threshold, TrigFlag)
 
     ' trigger logic (all handled on the 'get' side)
-    'If (TrigFlag = true) Then
-      'SendVariables (RXResponse,ComSDC7,0,PakBusAddr,0000,0,"Public","TrigFlag",TrigFlag,1)
-    'EndIf
+    If (TrigFlag = true) Then
+      SendVariables (RXResponse,ComSDC7,0,PakBusAddr,0000,0,"Public","TrigFlag",TrigFlag,1)
+    EndIf
     
 		'Call Data Tables and Store Data
 		CallTable InundationData
