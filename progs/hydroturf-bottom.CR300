@@ -23,51 +23,56 @@ Units PTemp_C=Deg C
 
 'Define Data Tables
 DataTable(TriggerData,True,-1)
-	DataInterval(0,60,Sec,10)
+	Sample(1,TrigVal,FP2)
+	Sample(1,TrigFlag,FP2)
+EndTable
+
+DataTable(HourlyTriggerData,True,-1)
+	DataInterval(0,60,Min,10)
   Average(1,BattV,FP2,False)
 	Average(1,PTemp_C,FP2,False)
 	Average(1,TrigVal,FP2,False)
 	Average(1,TrigFlag,FP2,False)
-EndTable
-DataTable(TriggerData1,True,-1)
-	'DataInterval(0,60,Sec,10)
-  Sample(1,BattV,FP2,False)
-	Sample(1,PTemp_C,FP2,False)
-	Sample(1,TrigVal,FP2,False)
-	Sample(1,TrigFlag,FP2,False)
 EndTable
 
 'Main Program
 BeginProg  
   PakBusAddr = 57
   TrigVal = 0
+  
 	'Main Scan
-	Scan(10,Sec,1,0)
-	 
+	Scan(60,Sec,1,0)
+
 		Battery(BattV)
 		PanelTemp(PTemp_C,60)
   
-    ' retrive information about inundation
-'    GetVariables(RXResponse,ComRS232, 0, PakBusAddr, 00000, 0, "InundationData", "TrigFlag_Avg", TrigFlag, 1)
-	  
-    ' sub changeTrigger(TrigFlag, TrigVal)
+    ' If inundated
     If (TrigFlag = true) Then
+      
+      ' retrive information about inundation
+      ' GetVariables(RXResponse, ComRS232, 0, PakBusAddr, 00000, 0, "InundationData", "TrigFlag", TrigFlag, 1)  
 
-    CallTable TriggerData1
+      ' set trigger value
       If TrigVal = 0 Then
         TrigVal = 1
       Else
         TrigVal = 0
       EndIf
-    ElseIf (TrigFlag = false) Then 
-      TrigVal = TrigVal 
+
+      ' send signal
+      Delay (0,250,mSec)
+      SW12(TrigVal)
+
+  		'Call Data Tables and Store Data
+  		CallTable TriggerData
+
     EndIf
 
-    Delay (0,250,mSec)
-    SW12(TrigVal)
-    
-		'Call Data Tables and Store Data
-		CallTable TriggerData
+    'Call Data Tables and Store Data
+    CallTable HourlyTriggerData
+
+    ' Assume the null hypothesis
+    TrigFlag = false	 
 
 	NextScan
 EndProg

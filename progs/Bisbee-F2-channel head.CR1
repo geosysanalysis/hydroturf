@@ -37,7 +37,16 @@ Units PT()=cm '?
 
 'Define Data Tables
 DataTable(InundationData,True,-1)
-	DataInterval(0,60,Sec,10)
+	Sample(1,Threshold,FP2)
+	Sample(1,ThresholdPT,FP2)
+	Sample(1,TrigFlag,FP2)
+	Sample(3,Inundation(),FP2)
+	Sample(4,V(),FP2)
+	Sample(4,PT(),FP2)
+EndTable
+
+DataTable(HourlyInundationData,True,-1)
+	DataInterval(0,60,Min,10)
   Average(1,BattV,FP2,False)
 	Average(1,PTemp_C,FP2,False)
 	Average(1,Threshold,FP2,False)
@@ -57,7 +66,7 @@ Sub IfTransducer(PTarr(4), PTthresh, PTbool)
   Public MaxPT(2), MinPT(2)
   MaxSpa(MaxPT(),3,PTarr())
   MinSpa(MinPT(),3,PTarr())
-  If PT(6 - MaxPT(2) - MinPT(2)) > PTthresh Then ' cheeky way to declare spatial median for three 
+  If PTarr  (6 - MaxPT(2) - MinPT(2)) > PTthresh Then ' cheeky way to declare spatial median for three 
     PTbool = true
   EndIf 
 EndSub
@@ -74,15 +83,14 @@ EndSub
 'Main Program
 BeginProg
   TrigFlag = false 
-  Threshold = 0.8
-  ThresholdPT = 3
+  Threshold = 0.5
+  ThresholdPT = 5
   PakBusAddr = 56
   slope=0.4554 
   intercept=80 ' for baro only
   
 	'Main Scan
 	Scan(10,Sec,1,0)
-	  TrigFlag = false 
 	 
 		Battery(BattV)
 		PanelTemp(PTemp_C,60)
@@ -109,10 +117,14 @@ BeginProg
     ' trigger logic (all handled on the 'get' side)
     If (TrigFlag = true) Then
       SendVariables (RXResponse,ComSDC7,0,PakBusAddr,0000,0,"Public","TrigFlag",TrigFlag,1)
+  		'Call Data Tables and Store Data
+  		CallTable InundationData
     EndIf
+   
+    CallTable HourlyInundationData
     
-		'Call Data Tables and Store Data
-		CallTable InundationData
+    ' assume the null hyothesis (no drying)
+    TrigFlag = false 
 
 	NextScan
 EndProg
