@@ -1,0 +1,67 @@
+'CR300/CR310
+'Triggers 12V current
+'Author: Quinn Hull
+
+'Change Log
+'10022022: Create Trigger for 12V based on counter
+'10162022: Create Trigger for 12V based on reconnyx
+'12142022: Back to measuring inundation as a raw voltage
+'12152022: Moved to CR300 from CR1000
+'02132023: For three sensors
+'04152023: Changes for Mike
+'05022023: Removing content, transition to receive variables
+
+'Declare Variables and Units
+Public BattV
+Public PTemp_C
+Public TrigFlag As Boolean ' if inundated, True. To decide if trigger (SW12) is needed
+Public TrigVal As Long ' if inundated, oscillates True False with Scan. To send a trigger (SW12). Note that camera responds to the 'change', not state, of SW12. 
+Public RXResponse, PakBusAddr ' get variable parameters; RXResponse is an error code and PakBusAddr is the address of the source logger
+
+Units BattV=Volts
+Units PTemp_C=Deg C
+
+'Define Data Tables
+DataTable(TriggerData,True,-1)
+	DataInterval(0,60,Sec,10)
+  Average(1,BattV,FP2,False)
+	Average(1,PTemp_C,FP2,False)
+	Average(1,TrigVal,FP2,False)
+	Average(1,TrigFlag,FP2,False)
+EndTable
+
+'Main Program
+BeginProg  
+  PakBusAddr = 57
+  TrigVal = 0
+	'Main Scan
+	Scan(10,Sec,1,0)
+	 
+		Battery(BattV)
+		PanelTemp(PTemp_C,60)
+  
+    ' retrive information about inundation
+    GetVariables(RXResponse,ComRS232, 0, PakBusAddr, 00000, 0, "InundationData", "TrigFlag_Avg", TrigFlag, 1)
+	  
+    ' sub changeTrigger(TrigFlag, TrigVal)
+    If (TrigFlag = true) Then
+      If TrigVal = 0 Then
+        TrigVal = 1
+      Else
+        TrigVal = 0
+      EndIf
+    ElseIf (TrigFlag = false) Then 
+      TrigVal = TrigVal 
+    EndIf
+
+    Delay (0,250,mSec)
+    SW12(TrigVal)
+    
+		'Call Data Tables and Store Data
+		CallTable TriggerData
+
+	NextScan
+EndProg
+
+
+

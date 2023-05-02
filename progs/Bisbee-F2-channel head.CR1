@@ -14,26 +14,26 @@
 '02132023: For three sensors
 '04152023: Changes for Mike
 '05012023: Updates for field implementation, QH
+'05022023: Configuring Send/Get Variables
 ' Wiring Diagram
 ' 
 
 'Declare Variables and Units
-Public BattV
-Public PTemp_C
-Public Inundation(3), V(4), PT(4)
-Public TrigFlag As Boolean ' if inundated, True. To decide if trigger (SW12) is needed
-Public TrigVal As Long ' if inundated, oscillates True False with Scan. To send a trigger (SW12). Note that camera responds to the 'change', not state, of SW12. 
+Public BattV, PTemp_C
+Public RXResponse, PakBusAddr ' parameters for 'send variable'; RXResponse is a code, PakBusAddr is the destination PakBus
+Public Inundation(3), V(4), PT(4) ' Sensors
+Public TrigFlag As Boolean ' if inundated, True.
 Public Threshold As Float ' inundation in excess sets TrigFlag to True
-Public ThresholdPT As Float
-Public slope As Float
-Public intercept As Float
+Public ThresholdPT As Float ' pressures in excess sets TrigFlag to True
+Public slope, intercept ' for pressure transducer calibration
+
 
 Units BattV=Volts
 Units PTemp_C=Deg C
 Units Threshold=mV/mv
 Units Inundation()=mV/mV
-' Units V()=?
-' Units PT()=?
+Units V()=mV '?
+Units PT()=cm '?
 
 'Define Data Tables
 DataTable(InundationData,True,-1)
@@ -43,9 +43,9 @@ DataTable(InundationData,True,-1)
 	Average(1,Threshold,FP2,False)
 	Average(1,ThresholdPT,FP2,False)
 	Average(1,TrigFlag,FP2,False)
-	Average(1,TrigVal,FP2,False)
-	Sample (4,V(1),FP2)
-	Sample (4,PT(1),FP2)
+	Average(3,Inundation(),FP2,False)
+	Average(4,V(),FP2,False)
+	Average(4,PT(),FP2,False)
 EndTable
 
 
@@ -74,11 +74,10 @@ EndSub
 'Main Program
 BeginProg
   TrigFlag = false 
-  TrigVal = 0
   Threshold = 0.8
   ThresholdPT = 3
-' Apply transducer calibration
-  slope=0.4554
+  PakBusAddr = 56
+  slope=0.4554 
   intercept=80 ' for baro only
   
 	'Main Scan
@@ -102,24 +101,15 @@ BeginProg
     PT(2)=(V(2)-V(4))*slope
     PT(3)=(V(3)-V(4))*slope
     PT(4)=V(4)*slope + intercept
-		 
+    
+		' set trig flag
     Call IfTransducer(PT(), ThresholdPT, TrigFlag)
     Call IfInundation(Inundation(), Threshold, TrigFlag)
 
-    ' sub changeTrigger(TrigFlag, TrigVal)
-    If (TrigFlag = true) Then
-      If TrigVal = 0 Then
-        TrigVal = 1
-        SendVariables (Inundation(),ComSDC7,0,61,0000,0,"InundationData","Inundation()",Inundation(),3)
-      Else
-        TrigVal = 0
-      EndIf
-    ElseIf (TrigFlag = false) Then 
-      TrigVal = TrigVal 
-    EndIf
-
-    'Delay (0,250,mSec)
-    'SW12(TrigVal)
+    ' trigger logic (all handled on the 'get' side)
+    'If (TrigFlag = true) Then
+      'SendVariables (RXResponse,ComSDC7,0,PakBusAddr,0000,0,"Public","TrigFlag",TrigFlag,1)
+    'EndIf
     
 		'Call Data Tables and Store Data
 		CallTable InundationData
