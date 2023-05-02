@@ -20,10 +20,13 @@
 'Declare Variables and Units
 Public BattV
 Public PTemp_C
-Public Inundation(3), V(4), TP(4), slope, intercept
+Public Inundation(3), V(4), PT(4)
 Public TrigFlag As Boolean ' if inundated, True. To decide if trigger (SW12) is needed
 Public TrigVal As Long ' if inundated, oscillates True False with Scan. To send a trigger (SW12). Note that camera responds to the 'change', not state, of SW12. 
 Public Threshold As Float ' inundation in excess sets TrigFlag to True
+Public ThresholdPT As Float
+Public slope As Float
+Public intercept As Float
 
 Units BattV=Volts
 Units PTemp_C=Deg C
@@ -38,24 +41,49 @@ DataTable(InundationData,True,-1)
   Average(1,BattV,FP2,False)
 	Average(1,PTemp_C,FP2,False)
 	Average(1,Threshold,FP2,False)
+	Average(1,ThresholdPT,FP2,False)
 	Average(1,TrigFlag,FP2,False)
 	Average(1,TrigVal,FP2,False)
 	Sample (4,V(1),FP2)
-	Sample (4,TP(1),FP2)
+	Sample (4,PT(1),FP2)
 EndTable
 
 
+Sub IfTransducer(PTarr(4), PTthresh, PTbool)
+' sub IfTransducer, sets the trigger value to true of median is above threshold
+' PTarr(4) : local variable for four PTs (including baro)
+' PTthresh : threshold at which the boolean is set to true
+' bool : exactly equivalent to the inundation flag, TrigFlag
+  Public MaxPT(2), MinPT(2)
+  MaxSpa(MaxPT(),3,PTarr())
+  MinSpa(MinPT(),3,PTarr())
+  If PT(6 - MaxPT(2) - MinPT(2)) > PTthresh Then ' cheeky way to declare spatial median for three 
+    PTbool = true
+  EndIf 
+EndSub
+
+Sub IfInundation(Inarr(4),Inthresh, Inbool)
+  ' sub ifInundated(Inundation, threshold)
+  Public MinIn(2)
+  MinSpa(MinIn(),3,Inarr())
+  If MinIn(1) < Inthresh Then 
+    Inbool = true
+  EndIf 
+EndSub
+
 'Main Program
 BeginProg
-  TrigFlag = 0 
+  TrigFlag = false 
   TrigVal = 0
   Threshold = 0.8
+  ThresholdPT = 3
 ' Apply transducer calibration
   slope=0.4554
   intercept=80 ' for baro only
   
 	'Main Scan
 	Scan(10,Sec,1,0)
+	  TrigFlag = false 
 	 
 		Battery(BattV)
 		PanelTemp(PTemp_C,60)
@@ -69,20 +97,15 @@ BeginProg
 		BrHalf (V(2),1,mV2500,6,Vx2,1,2500,False ,0,250,2500,0)
 		BrHalf (V(3),1,mV2500,7,Vx2,1,2500,False ,0,250,2500,0)
     BrHalf (V(4),1,mV2500,8,Vx2,1,2500,False ,0,250,2500,0)    
-
-    TP(1)=(V(1)-V(4))*slope 
-    TP(2)=(V(2)-V(4))*slope
-    TP(3)=(V(3)-V(4))*slope
-    TP(4)=V(4)*slope + intercept
+    ' Baro-correct transducer readings
+    PT(1)=(V(1)-V(4))*slope 
+    PT(2)=(V(2)-V(4))*slope
+    PT(3)=(V(3)-V(4))*slope
+    PT(4)=V(4)*slope + intercept
 		 
+    Call IfTransducer(PT(), ThresholdPT, TrigFlag)
+    Call IfInundation(Inundation(), Threshold, TrigFlag)
 
-    ' sub ifInundated(Inundation, threshold)
-	  If (Inundation(1) < Threshold) OR (Inundation(2) < Threshold) OR (Inundation(3) < Threshold) Then 
-	    TrigFlag = true
-	  Else
-	    TrigFlag = false
-	  EndIf 
-	  
     ' sub changeTrigger(TrigFlag, TrigVal)
     If (TrigFlag = true) Then
       If TrigVal = 0 Then
