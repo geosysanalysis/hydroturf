@@ -25,7 +25,10 @@ Public Inundation(3), V(4), PT(4) ' Sensors
 Public TrigFlag As Boolean ' if inundated, True.
 Public Threshold As Float ' inundation in excess sets TrigFlag to True
 Public ThresholdPT As Float ' pressures in excess sets TrigFlag to True
-Public slope, intercept ' for pressure transducer calibration
+' for pressure transducer calibration
+Public Offset(3)
+Public slope
+Public intercept
 
 
 Units BattV=Volts
@@ -86,9 +89,13 @@ BeginProg
   Threshold = 0.5
   ThresholdPT = 5
   PakBusAddr = 56
-  slope=0.4554 
-  intercept=80 ' for baro only
-  
+  Offset(1)() = 2.7
+  Offset(2)() = -4.1
+  Offset(3)() = 1.4	
+  slope=0.540044284 
+  intercept=-872.7115623
+ 
+ 
 	'Main Scan
 	Scan(10,Sec,1,0)
 	 
@@ -105,10 +112,11 @@ BeginProg
 		BrHalf (V(3),1,mV2500,7,Vx2,1,2500,False ,0,250,2500,0)
     BrHalf (V(4),1,mV2500,8,Vx2,1,2500,False ,0,250,2500,0)    
     ' Baro-correct transducer readings
-    PT(1)=(V(1)-V(4))*slope 
-    PT(2)=(V(2)-V(4))*slope
-    PT(3)=(V(3)-V(4))*slope
-    PT(4)=V(4)*slope + intercept
+    PT(4)=V(4)*slope + intercept ' baro PT
+    PT(1)=(V(1)-Offset(1))*slope + intercept - PT(4)
+    PT(2)=(V(2)-Offset(2))*slope + intercept - PT(4)
+    PT(3)=(V(3)-Offset(3))*slope + intercept - PT(4)
+    
     
 		' set trig flag
     Call IfTransducer(PT(), ThresholdPT, TrigFlag)
