@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:\Campbellsci\Lib\DevConfigLib\en\v2/summary.xsl"?>
+<device-config device-type="14" major-version="8" minor-version="3" model-no="RF401" serial-no="0" timestamp="2023-05-03T09:06:27.912">
+  <setting id="0" name="Active Interface">
+    <component name="Active Interface" repeat-count="0">0</component>
+  </setting>
+  <setting id="1" name="SDC Address">
+    <component name="SDC Address" repeat-count="0">7</component>
+  </setting>
+  <setting id="2" name="RS-232 Auto Power Down">
+    <component name="RS-232 Auto Power Down" repeat-count="0">1</component>
+  </setting>
+  <setting id="3" name="RS-232 Parity">
+    <component name="RS-232 Parity" repeat-count="0">0</component>
+  </setting>
+  <setting id="4" name="RS-232 Stop Bits">
+    <component name="RS-232 Stop Bits" repeat-count="0">0</component>
+  </setting>
+  <setting id="5" name="RS-232 Character Length">
+    <component name="RS-232 Character Length" repeat-count="0">0</component>
+  </setting>
+  <setting id="6" name="Protocol">
+    <component name="Protocol" repeat-count="0">1</component>
+  </setting>
+  <setting id="7" name="RS-232 Baud Rate">
+    <component name="RS-232 Baud Rate" repeat-count="0">4</component>
+  </setting>
+  <setting id="8" name="RF Standby Mode">
+    <component name="RF Standby Mode" repeat-count="0">3</component>
+  </setting>
+  <setting id="9" name="Long Header Time">
+    <component name="Long Header Time" repeat-count="0">7</component>
+  </setting>
+  <setting id="10" name="RF Hop Sequence">
+    <component name="RF Hop Sequence" repeat-count="0">0</component>
+  </setting>
+  <setting id="11" name="AT Sequence Character">
+    <component name="AT Sequence Character" repeat-count="0">43</component>
+  </setting>
+  <setting id="12" name="Sync Timer">
+    <component name="Sync Timer" repeat-count="0">0</component>
+  </setting>
+  <setting id="13" name="Retry Count">
+    <component name="Retry Count" repeat-count="0">3</component>
+  </setting>
+  <setting id="14" name="Random Delay Slots">
+    <component name="Random Delay Slots" repeat-count="0">1</component>
+  </setting>
+  <setting id="15" name="Pin Wakeup">
+    <component name="Pin Wakeup" repeat-count="0">1</component>
+  </setting>
+  <setting id="16" name="Received Signal Strength">
+    <component name="Received Signal Strength" repeat-count="0">76</component>
+  </setting>
+  <setting id="17" name="Rf Address">
+    <component name="RF Net" repeat-count="0">0</component>
+    <component name="RF Address" repeat-count="0">0</component>
+  </setting>
+  <setting id="18" name="Time to Sleep">
+    <component name="Time to Sleep" repeat-count="0">50</component>
+  </setting>
+  <setting id="19" name="Time to Long Header">
+    <component name="Time to Long Header" repeat-count="0">48</component>
+  </setting>
+  <setting id="20" name="Silence Time before Command Sequence">
+    <component name="Silence Time before Command Sequence" repeat-count="0">10</component>
+  </setting>
+  <setting id="21" name="Silence Time after Command Sequence">
+    <component name="Silence Time after Command Sequence" repeat-count="0">10</component>
+  </setting>
+  <setting id="22" name="AT Command Mode Timeout">
+    <component name="AT Command Mode Timeout" repeat-count="0">100</component>
+  </setting>
+  <setting id="23" name="Address Mask">
+    <component name="Net Address Mask" repeat-count="0">31</component>
+    <component name="Radio Address Mask" repeat-count="0">1023</component>
+  </setting>
+  <setting id="24" name="Transmit Timer">
+    <component name="Transmit Timer" repeat-count="0">400</component>
+  </setting>
+  <setting id="25" name="PakBus Address">
+    <component name="PakBus Address" repeat-count="0">1</component>
+  </setting>
+  <setting id="26" name="Radio Firmware Version">
+    <component name="Radio Firmware Version" repeat-count="0">46147</component>
+  </setting>
+  <setting id="27" name="Retransmit Failures">
+    <component name="Retransmit Failures" repeat-count="0">0</component>
+  </setting>
+  <setting id="28" name="Serial Number">
+    <component name="Serial Number" repeat-count="0">0</component>
+  </setting>
+  <setting id="29" name="OS Version">
+    <component name="OS Version" repeat-count="0">4</component>
+  </setting>
+  <setting id="30" name="PakBus Beacon Interval">
+    <component name="PakBus Beacon Interval" repeat-count="0">60</component>
+  </setting>
+  <setting id="31" name="PakBus Verify Interval">
+    <component name="PakBus Verify Interval" repeat-count="0">150</component>
+  </setting>
+  <setting id="32" name="Central Router">
+    <component name="Central Router" repeat-count="0">0</component>
+  </setting>
+  <setting id="33" name="Neighbors Allowed" />
+  <setting id="34" name="ME Baud Rate">
+    <component name="ME Baud Rate" repeat-count="0">0</component>
+  </setting>
+</device-config>
+
