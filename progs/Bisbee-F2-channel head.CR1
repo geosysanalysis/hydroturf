@@ -112,7 +112,7 @@ BeginProg
 		BrHalf (V(3),1,mV2500,7,Vx2,1,2500,False ,0,250,2500,0)
     BrHalf (V(4),1,mV2500,8,Vx2,1,2500,False ,0,250,2500,0)    
     ' Baro-correct transducer readings
-    PT(4)=V(4)*slope + intercept ' baro PT
+    PT(4)=V(4)*slope + intercept ' baro PT (relative to `0`) at time of calibration
     PT(1)=(V(1)-Offset(1))*slope + intercept - PT(4)
     PT(2)=(V(2)-Offset(2))*slope + intercept - PT(4)
     PT(3)=(V(3)-Offset(3))*slope + intercept - PT(4)
