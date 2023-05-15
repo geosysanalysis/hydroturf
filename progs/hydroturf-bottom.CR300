@@ -41,7 +41,7 @@ BeginProg
   TrigVal = 0
   
 	'Main Scan
-	Scan(60,Sec,1,0)
+	Scan(10,Sec,1,0)
 
 		Battery(BattV)
 		PanelTemp(PTemp_C,60)
@@ -60,7 +60,7 @@ BeginProg
       EndIf
 
       ' send signal
-      Delay (0,250,mSec)
+      Delay (0,500,mSec)
       SW12(TrigVal)
 
   		'Call Data Tables and Store Data

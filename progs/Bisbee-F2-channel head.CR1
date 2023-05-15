@@ -87,7 +87,7 @@ EndSub
 BeginProg
   TrigFlag = false 
   Threshold = 0.5
-  ThresholdPT = 5
+  ThresholdPT = 10
   PakBusAddr = 56
   Offset(1)() = 2.7
   Offset(2)() = -4.1
