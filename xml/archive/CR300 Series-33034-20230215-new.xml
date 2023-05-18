@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:\Campbellsci\Lib\DevConfigLib\en\v2/summary.xsl"?>
+<device-config device-type="69" major-version="1" minor-version="0" model-no="CR300 Series" serial-no="33034" timestamp="2023-02-15T17:19:28.256">
+  <setting id="0" name="Company">
+    <component name="Company" repeat-count="0">Campbell Scientific, Inc.&#10;</component>
+  </setting>
+  <setting id="1" name="Model">
+    <component name="Model" repeat-count="0">CR300&#10;</component>
+  </setting>
+  <setting id="2" name="OS Version">
+    <component name="OS Version" repeat-count="0">CR300.Std.10.06&#10;</component>
+  </setting>
+  <setting id="3" name="Serial Number">
+    <component name="Serial Number" repeat-count="0">33034</component>
+  </setting>
+  <setting id="5" name="Station Name">
+    <component name="Station Name" repeat-count="0">CR300_1&#10;</component>
+  </setting>
+  <setting id="10" name="PakBus Address">
+    <component name="PakBus Address" repeat-count="0">56</component>
+  </setting>
+  <setting id="11" name="Security">
+    <component name="Security Level 1" repeat-count="0">0</component>
+    <component name="Security Level 2" repeat-count="0">0</component>
+    <component name="Security Level 3" repeat-count="0">0</component>
+  </setting>
+  <setting id="12" name="Routes">
+    <component name="Port Number" repeat-count="0">1</component>
+    <component name="PakBus Address" repeat-count="0">4088</component>
+    <component name="Via Neighbor Address" repeat-count="0">4088</component>
+    <component name="Response Time" repeat-count="0">1000</component>
+  </setting>
+  <setting id="13" name="PakBus Encryption Key">
+    <component name="PakBus Encryption Key" repeat-count="0">&#10;</component>
+  </setting>
+  <setting id="14" name="PakBus/TCP Password">
+    <component name="PakBus/TCP Password" repeat-count="0">&#10;</component>
+  </setting>
+  <setting id="40" name="PPP Interface">
+    <component name="PPP Interface" repeat-count="0">0</component>
+    <component name="PPP IP Address" repeat-count="0">0.0.0.0</component>
+    <component name="PPP User Name" repeat-count="0">&#10;</component>
+    <component name="PPP Password" repeat-count="0">&#10;</component>
+    <component name="PPP Dial" repeat-count="0">&#10;</component>
+    <component name="PPP Dial Response" repeat-count="0">&#10;</component>
+  </setting>
+  <setting id="50" name="Baud Rate RS232">
+    <component name="Baud Rate RS232" repeat-count="0">115200</component>
+  </setting>
+  <setting id="51" name="Beacon Interval RS-232">
+    <component name="Beacon Interval RS-232" repeat-count="0">0</component>
+  </setting>
+  <setting id="52" name="Verify Interval RS-232">
+    <component name="Verify Interval RS-232" repeat-count="0">0</component>
+  </setting>
+  <setting id="53" name="Neighbors Allowed RS-232">
+    <component name="Begin Range" repeat-count="0">55</component>
+    <component name="End Range" repeat-count="0">55</component>
+  </setting>
+  <setting id="60" name="Baud Rate COM1">
+    <component name="Baud Rate COM1" repeat-count="0">0</component>
+  </setting>
+  <setting id="61" name="Beacon Interval COM1">
+    <component name="Beacon Interval COM1" repeat-count="0">0</component>
+  </setting>
+  <setting id="62" name="Verify Interval COM1">
+    <component name="Verify Interval COM1" repeat-count="0">0</component>
+  </setting>
+  <setting id="63" name="Neighbors Allowed COM1" />
+  <setting id="100" name="PakBus/TCP Service Port">
+    <component name="PakBus/TCP Service Port" repeat-count="0">6785</component>
+  </setting>
+  <setting id="101" name="PakBus/TCP Client Connections" />
+  <setting id="102" name="TCP/IP Services Enabled">
+    <component name="HTTP Enabled" repeat-count="0">1</component>
+    <component name="Telnet Enabled" repeat-count="0">0</component>
+    <component name="Ping Enabled" repeat-count="0">0</component>
+    <component name="FTP Enabled" repeat-count="0">0</component>
+    <component name="HTTPS Enabled" repeat-count="0">0</component>
+  </setting>
+  <setting id="103" name="FTP User Name">
+    <component name="FTP User Name" repeat-count="0">anonymous&#10;</component>
+    <component name="FTP Password" repeat-count="0">*&#10;</component>
+  </setting>
+  <setting id="108" name="HTTP Service Port">
+    <component name="HTTP Service Port" repeat-count="0">80</component>
+  </setting>
+  <setting id="109" name="FTP Service Port">
+    <component name="FTP Service Port" repeat-count="0">21</component>
+  </setting>
+  <setting id="120" name="UTC Offset">
+    <component name="UTC Offset" repeat-count="0">-1</component>
+  </setting>
+  <setting id="121" name="Is Router">
+    <component name="Is Router" repeat-count="0">0</component>
+  </setting>
+  <setting id="122" name="Communication Allocation">
+    <component name="Communication Allocation" repeat-count="0">50</component>
+  </setting>
+  <setting id="125" name="Route Filters" />
+  <setting id="126" name="Central Routers" />
+  <setting id="128" name="Files Manager" />
+  <setting id="130" name="Max Packet Size">
+    <component name="Max Packet Size" repeat-count="0">250</component>
+  </setting>
+  <setting id="132" name="Include File Name">
+    <component name="Include File Name" repeat-count="0">&#10;</component>
+  </setting>
+  <setting id="135" name="RS232 Always On">
+    <component name="RS232 Always On" repeat-count="0">0</component>
+  </setting>
+  <setting id="136" name="USB Configuration">
+    <component name="USB Configuration" repeat-count="0">1</component>
+  </setting>
+  <setting id="140" name="IP Trace">
+    <component name="IP Trace COM Port" repeat-count="0">0</component>
+    <component name="IP Trace Code" repeat-count="0">0</component>
+  </setting>
+  <setting id="180" name="Strings">
+    <component name="String 1" repeat-count="0">&#10;</component>
+    <component name="String 2" repeat-count="0">&#10;</component>
+    <component name="String 3" repeat-count="0">&#10;</component>
+    <component name="String 4" repeat-count="0">&#10;</component>
+    <component name="String 5" repeat-count="0">&#10;</component>
+    <component name="String 6" repeat-count="0">&#10;</component>
+    <component name="String 7" repeat-count="0">&#10;</component>
+    <component name="String 8" repeat-count="0">&#10;</component>
+    <component name="String 9" repeat-count="0">&#10;</component>
+    <component name="String 10" repeat-count="0">&#10;</component>
+    <component name="String 11" repeat-count="0">&#10;</component>
+    <component name="String 12" repeat-count="0">&#10;</component>
+  </setting>
+  <setting id="181" name="Values">
+    <component name="Value 1" repeat-count="0">0</component>
+    <component name="Value 2" repeat-count="0">0</component>
+    <component name="Value 3" repeat-count="0">0</component>
+    <component name="Value 4" repeat-count="0">0</component>
+    <component name="Value 5" repeat-count="0">0</component>
+    <component name="Value 6" repeat-count="0">0</component>
+    <component name="Value 7" repeat-count="0">0</component>
+    <component name="Value 8" repeat-count="0">0</component>
+    <component name="Value 9" repeat-count="0">0</component>
+    <component name="Value 10" repeat-count="0">0</component>
+    <component name="Value 11" repeat-count="0">0</component>
+    <component name="Value 12" repeat-count="0">0</component>
+  </setting>
+  <setting id="137" name="USB Virtual Ethernet IP Address">
+    <component name="USB Virtual Ethernet IP Address" repeat-count="0">0.0.0.0</component>
+  </setting>
+  <setting id="149" name="HTTPS Service Port">
+    <component name="HTTPS Service Port" repeat-count="0">443</component>
+  </setting>
+  <setting id="142" name="SSL Enabled">
+    <component name="Transport Layer Security (TLS) Enabled" repeat-count="0">0</component>
+    <component name="IP Broadcast Filtered" repeat-count="0">0</component>
+    <component name="Reserved" repeat-count="0">0</component>
+  </setting>
+  <setting id="150" name="TLS Status">
+    <component name="TLS Status" repeat-count="0">Not initialized&#10;</component>
+  </setting>
+  <setting id="144" name="Max TLS Server Connections">
+    <component name="Max TLS Server Connections" repeat-count="0">0</component>
+  </setting>
+  <setting id="145" name="TLS Private Key">
+    <component name="TLS Private Key" repeat-count="0" />
+  </setting>
+  <setting id="147" name="TLS Private Key Password">
+    <component name="TLS Private Key Password" repeat-count="0">&#10;</component>
+  </setting>
+  <setting id="146" name="TLS Certificate">
+    <component name="TLS Certificate" repeat-count="0" />
+  </setting>
+</device-config>
+

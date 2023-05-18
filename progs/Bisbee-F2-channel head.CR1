@@ -24,12 +24,13 @@ Public RXResponse, PakBusAddr ' parameters for 'send variable'; RXResponse is a 
 Public Inundation(3), V(4), PT(4) ' Sensors
 Public TrigFlag As Boolean ' if inundated, True.
 Public Threshold As Float ' inundation in excess sets TrigFlag to True
+Public ThresholdFail As Float ' inundation below this indicates the sensor has most likely failed, and would otherwise generate a false positive
 Public ThresholdPT As Float ' pressures in excess sets TrigFlag to True
+Public ThresholdFailPT As Float ' inundatino above this indcates the sensor has most likley failed, and would otherwise generate a false positive
 ' for pressure transducer calibration
 Public Offset(3)
 Public slope
 Public intercept
-
 
 Units BattV=Volts
 Units PTemp_C=Deg C
@@ -61,33 +62,41 @@ DataTable(HourlyInundationData,True,-1)
 EndTable
 
 
-Sub IfTransducer(PTarr(4), PTthresh, PTbool)
+Sub IfTransducer(PTarr(4), PTthresh, PTbool, FailthreshPT)
 ' sub IfTransducer, sets the trigger value to true of median is above threshold
 ' PTarr(4) : local variable for four PTs (including baro)
-' PTthresh : threshold at which the boolean is set to true
+' PTthresh : threshold at which the boolean is set to true  
+' FailthreshPT : threshold above which a sensor has failed
 ' bool : exactly equivalent to the inundation flag, TrigFlag
   Public MaxPT(2), MinPT(2)
   MaxSpa(MaxPT(),3,PTarr())
   MinSpa(MinPT(),3,PTarr())
-  If PTarr  (6 - MaxPT(2) - MinPT(2)) > PTthresh Then ' cheeky way to declare spatial median for three 
+  If (PTarr  (6 - MaxPT(2) - MinPT(2)) >= PTthresh) AND (PTarr  (6 - MaxPT(2) - MinPT(2)) <= FailthreshPT) Then ' cheeky way to declare spatial median for three 
     PTbool = true
   EndIf 
 EndSub
 
-Sub IfInundation(Inarr(4),Inthresh, Inbool)
+Sub IfInundation(Inarr(3),Inthresh, Inbool, Failthresh)
   ' sub ifInundated(Inundation, threshold)
-  Public MinIn(2)
-  MinSpa(MinIn(),3,Inarr())
-  If MinIn(1) < Inthresh Then 
-    Inbool = true
-  EndIf 
+  ' Inarr(3) : local variable for three inundation sensors
+  ' Inthresh : theshold below which boolean is set to true
+  ' Failthresh : threshold below which a sensor has failed
+  ' Inbool : exactly equivalent to the inundation flag, TrigFlag
+  Dim I
+  For I=1 To 3 Step 1
+     If (Inarr(I) <= Inthresh) AND (Inarr(I) >= Failthresh) Then 
+      Inbool = true
+    EndIf   
+  Next 
 EndSub
 
 'Main Program
 BeginProg
   TrigFlag = false 
   Threshold = 0.5
+  ThresholdFail = 0
   ThresholdPT = 10
+  ThresholdFailPT = 20
   PakBusAddr = 56
   Offset(1)() = 2.7
   Offset(2)() = -4.1
@@ -119,8 +128,8 @@ BeginProg
     
     
 		' set trig flag
-    Call IfTransducer(PT(), ThresholdPT, TrigFlag)
-    Call IfInundation(Inundation(), Threshold, TrigFlag)
+    Call IfTransducer(PT(), ThresholdPT, TrigFlag, ThresholdFailPT)
+    Call IfInundation(Inundation(), Threshold, TrigFlag, ThresholdFail)
 
     ' trigger logic (all handled on the 'get' side)
     If (TrigFlag = true) Then
