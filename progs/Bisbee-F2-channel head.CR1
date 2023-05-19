@@ -94,7 +94,7 @@ EndSub
 BeginProg
   TrigFlag = false 
   Threshold = 0.5
-  ThresholdFail = 0
+  ThresholdFail = 0.002
   ThresholdPT = 10
   ThresholdFailPT = 20
   PakBusAddr = 56
