@@ -14,6 +14,26 @@ programs for triggering reconyx camera based on inundation monitoring in a chann
 * `nwp` - network planner files
   * `bisbee-05012023.nwp` network planner for the entire bisbee CSci logger network that should be used first in lieu of the separate device configuration utility files
 
+## Sensor Label Issues: (updated 06132023)
+* Problem: Sensors are labeled in a way that is inconsistent with the program. 
+* Solution: Move sensor labels around to create consistency with the program. 
+
+* Inundation Sensors:
+
+| Label # | Program # |
+| 1 | 3 |
+| 2 | 2 |
+| 3 | 1 |
+
+
+* Pressure Transducer: 
+
+| Label # | Program # |
+| 3 | 2 | 
+| 2 | 1 | 
+| 1 | 3 | 
+
+
 ## documentation and diagrams
 
 ### CR1000 Wiring Diagram and Info
