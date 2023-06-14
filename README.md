@@ -17,6 +17,7 @@ programs for triggering reconyx camera based on inundation monitoring in a chann
 ## Sensor Label Issues: (updated 06132023)
 * Problem: Sensors are labeled in a way that is inconsistent with the program. 
 * Solution: Move sensor labels around to create consistency with the program. 
+## JL learning to use GitHub
 
 * Inundation Sensors:
 
